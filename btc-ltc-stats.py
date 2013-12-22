@@ -1,17 +1,16 @@
 #!/usr/bin/python
 
-__author__ = 'r0dn3y'
+__author__ = 'jdr0dn3y'
 
 import json
 import urllib2
-
 btcurl = 'https://btc-e.com/api/2/btc_usd/ticker'
 btcltcurl = 'https://btc-e.com/api/2/ltc_btc/ticker'
 ltcurl = 'https://btc-e.com/api/2/ltc_usd/ticker'
 
 #Enter the number of *coins you have
-btcowned = 25
-ltcowned = 250
+btcowned = 1
+ltcowned = 1
 
 
 def parse(json_data):
@@ -40,31 +39,32 @@ def fetch(tickurl):
 
 
 if __name__ == '__main__':
-    responsebtc = fetch(btcurl)
+    print 'BTC-E Values'
+responsebtc = fetch(btcurl)
     highbtc, lowbtc, avgbtc, lastbtc = parse(responsebtc)
     print "BTC / USD"
-    print "High: %s" % (highbtc)
-    print "Low : %s" % (lowbtc)
-    print "Avg : %s" % (avgbtc)
-    print "Last : %s" % (lastbtc)
+print "High : %s" % (highbtc)
+print "Low  : %s" % (lowbtc)
+print "Avg  : %s" % (avgbtc)
+print "Last : %s" % (lastbtc)
     print ""
 
     responsebtcltc = fetch(btcltcurl)
     highbtcltc, lowbtcltc, avgbtcltc, lastbtcltc = parse(responsebtcltc)
     print "LTC / BTC"
-    print "High: %s" % (highbtcltc)
-    print "Low : %s" % (lowbtcltc)
-    print "Avg : %s" % (avgbtcltc)
-    print "Last : %s" % (lastbtcltc)
+print "High : %s" % (highbtcltc)
+print "Low  : %s" % (lowbtcltc)
+print "Avg  : %s" % (avgbtcltc)
+print "Last : %s" % (lastbtcltc)
     print ""
 
     responseltc = fetch(ltcurl)
     highltc, lowltc, avgltc, lastltc = parse(responseltc)
     print "LTC / USD"
-    print "High: %s" % (highltc)
-    print "Low : %s" % (lowltc)
-    print "Avg : %s" % (avgltc)
-    print "Last : %s" % (lastltc)
+print "High : %s" % (highltc)
+print "Low  : %s" % (lowltc)
+print "Avg  : %s" % (avgltc)
+print "Last : %s" % (lastltc)
     print ""
 
     #Prints current value of *coins owned.
