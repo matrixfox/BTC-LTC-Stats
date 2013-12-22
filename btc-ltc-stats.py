@@ -2,7 +2,6 @@
 
 __author__ = 'jdr0dn3y'
 
-import json
 import urllib2
 btcurl = 'https://btc-e.com/api/2/btc_usd/ticker'
 btcltcurl = 'https://btc-e.com/api/2/ltc_btc/ticker'
@@ -71,3 +70,26 @@ print "Last : %s" % (lastltc)
     # You will need to manually enter the number of coins you own. Will update to automated in later release.
     print "BTC Value: " + str((float(lastbtc) * btcowned))
     print "LTC Value: " + str((float(lastltc) * ltcowned))
+
+import requests, json
+
+btcusd = {'pair': 'BTC/USD'}
+ltcusd = {'pair': 'LTC/USD'}
+ltcbtc = {'pair': 'LTC/BTC'}
+lastbtc = ''
+lastltc = ''
+ltcowned = 3.99
+btcowned = .47
+
+r = requests.post('https://www.litetree.com/api/1.1/ticker', params=btcusd)
+btcusddata = json.loads(r.text)
+r = requests.post('https://www.litetree.com/api/1.1/ticker', params=ltcusd)
+ltcusddata = json.loads(r.text)
+r = requests.post('https://www.litetree.com/api/1.1/ticker', params=ltcbtc)
+ltcbtcdata = json.loads(r.text)
+
+lastltltc = ltcusddata['data']['last']
+lastltbtc = btcusddata['data']['last']
+
+print "BTC Value: " + str((float(lastltbtc) * btcowned))
+print "LTC Value: " + str((float(lastltltc) * ltcowned))
