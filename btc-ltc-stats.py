@@ -80,8 +80,6 @@ if __name__ == '__main__':
     ltcbtc = {'pair': 'LTC/BTC'}
     lastbtc = ''
     lastltc = ''
-    ltcowned = 3.99
-    btcowned = .47
 
     r = requests.post('https://www.litetree.com/api/1.1/ticker', params=btcusd)
     btcusddata = json.loads(r.text)
