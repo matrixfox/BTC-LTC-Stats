@@ -3,6 +3,9 @@
 __author__ = 'jdr0dn3y'
 
 import urllib2
+import json
+import requests
+
 btcurl = 'https://btc-e.com/api/2/btc_usd/ticker'
 btcltcurl = 'https://btc-e.com/api/2/ltc_btc/ticker'
 ltcurl = 'https://btc-e.com/api/2/ltc_usd/ticker'
@@ -39,31 +42,31 @@ def fetch(tickurl):
 
 if __name__ == '__main__':
     print 'BTC-E Values'
-responsebtc = fetch(btcurl)
+    responsebtc = fetch(btcurl)
     highbtc, lowbtc, avgbtc, lastbtc = parse(responsebtc)
     print "BTC / USD"
-print "High : %s" % (highbtc)
-print "Low  : %s" % (lowbtc)
-print "Avg  : %s" % (avgbtc)
-print "Last : %s" % (lastbtc)
+    print "High : %s" % (highbtc)
+    print "Low  : %s" % (lowbtc)
+    print "Avg  : %s" % (avgbtc)
+    print "Last : %s" % (lastbtc)
     print ""
 
     responsebtcltc = fetch(btcltcurl)
     highbtcltc, lowbtcltc, avgbtcltc, lastbtcltc = parse(responsebtcltc)
     print "LTC / BTC"
-print "High : %s" % (highbtcltc)
-print "Low  : %s" % (lowbtcltc)
-print "Avg  : %s" % (avgbtcltc)
-print "Last : %s" % (lastbtcltc)
+    print "High : %s" % (highbtcltc)
+    print "Low  : %s" % (lowbtcltc)
+    print "Avg  : %s" % (avgbtcltc)
+    print "Last : %s" % (lastbtcltc)
     print ""
 
     responseltc = fetch(ltcurl)
     highltc, lowltc, avgltc, lastltc = parse(responseltc)
     print "LTC / USD"
-print "High : %s" % (highltc)
-print "Low  : %s" % (lowltc)
-print "Avg  : %s" % (avgltc)
-print "Last : %s" % (lastltc)
+    print "High : %s" % (highltc)
+    print "Low  : %s" % (lowltc)
+    print "Avg  : %s" % (avgltc)
+    print "Last : %s" % (lastltc)
     print ""
 
     #Prints current value of *coins owned.
@@ -71,25 +74,23 @@ print "Last : %s" % (lastltc)
     print "BTC Value: " + str((float(lastbtc) * btcowned))
     print "LTC Value: " + str((float(lastltc) * ltcowned))
 
-import requests, json
+    btcusd = {'pair': 'BTC/USD'}
+    ltcusd = {'pair': 'LTC/USD'}
+    ltcbtc = {'pair': 'LTC/BTC'}
+    lastbtc = ''
+    lastltc = ''
+    ltcowned = 3.99
+    btcowned = .47
 
-btcusd = {'pair': 'BTC/USD'}
-ltcusd = {'pair': 'LTC/USD'}
-ltcbtc = {'pair': 'LTC/BTC'}
-lastbtc = ''
-lastltc = ''
-ltcowned = 3.99
-btcowned = .47
+    r = requests.post('https://www.litetree.com/api/1.1/ticker', params=btcusd)
+    btcusddata = json.loads(r.text)
+    r = requests.post('https://www.litetree.com/api/1.1/ticker', params=ltcusd)
+    ltcusddata = json.loads(r.text)
+    r = requests.post('https://www.litetree.com/api/1.1/ticker', params=ltcbtc)
+    ltcbtcdata = json.loads(r.text)
 
-r = requests.post('https://www.litetree.com/api/1.1/ticker', params=btcusd)
-btcusddata = json.loads(r.text)
-r = requests.post('https://www.litetree.com/api/1.1/ticker', params=ltcusd)
-ltcusddata = json.loads(r.text)
-r = requests.post('https://www.litetree.com/api/1.1/ticker', params=ltcbtc)
-ltcbtcdata = json.loads(r.text)
+    lastltltc = ltcusddata['data']['last']
+    lastltbtc = btcusddata['data']['last']
 
-lastltltc = ltcusddata['data']['last']
-lastltbtc = btcusddata['data']['last']
-
-print "BTC Value: " + str((float(lastltbtc) * btcowned))
-print "LTC Value: " + str((float(lastltltc) * ltcowned))
+    print "BTC Value: " + str((float(lastltbtc) * btcowned))
+    print "LTC Value: " + str((float(lastltltc) * ltcowned))
