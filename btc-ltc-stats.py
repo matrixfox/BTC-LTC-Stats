@@ -73,6 +73,7 @@ if __name__ == '__main__':
     # You will need to manually enter the number of coins you own. Will update to automated in later release.
     print "BTC Value: " + str((float(lastbtc) * btcowned))
     print "LTC Value: " + str((float(lastltc) * ltcowned))
+    print ''
 
     btcusd = {'pair': 'BTC/USD'}
     ltcusd = {'pair': 'LTC/USD'}
@@ -92,5 +93,6 @@ if __name__ == '__main__':
     lastltltc = ltcusddata['data']['last']
     lastltbtc = btcusddata['data']['last']
 
+    print "LiteTree Exchange Values"
     print "BTC Value: " + str((float(lastltbtc) * btcowned))
     print "LTC Value: " + str((float(lastltltc) * ltcowned))
